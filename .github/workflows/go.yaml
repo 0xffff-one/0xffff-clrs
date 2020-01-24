@@ -25,7 +25,7 @@ jobs:
         fi
     
     - name: Check code style
-      run: /
+      run: |
         if [ -n "$(go fmt ./...)" ]; then
             exit 1
         fi
