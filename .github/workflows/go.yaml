@@ -26,8 +26,8 @@ jobs:
     
     - name: Check code style
       run: /
-        if [ -n `go fmt ./...` ]; then
-          exit 1
+        if [ -n "$(go fmt ./...)" ]; then
+            exit 1
         fi
 
     - name: Testing
