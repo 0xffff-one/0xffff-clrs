@@ -9,14 +9,14 @@ This repository is trying to focus on the implementation of the data structures 
 ## What has been done or not
 
 * Binary Heap
-  - [x] maximum heap
-  - [ ] minimun heap
-  - [ ] generic
+  * [x] maximum heap
+  * [ ] minimun heap
+  * [ ] generic
 
 * TODO
-  - [ ] Linked List
-  - [ ] Sorting algorithms
-    - [ ] Quick sort
-    - [ ] Heap sort
-    - [ ] ...
-  - [ ] Code coverage
+  * [ ] Linked List
+  * [ ] Sorting algorithms
+    * [ ] Quick sort
+    * [ ] Heap sort
+    * [ ] ...
+  * [ ] Code coverage
