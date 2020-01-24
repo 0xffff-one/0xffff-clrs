@@ -1,4 +1,4 @@
-name: Go
+name: Status check
 on:
   push:
   pull_request:
