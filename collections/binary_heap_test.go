@@ -6,17 +6,17 @@ import (
 )
 
 func (heap *BinaryHeap) walkImpl(root int, f func(root *int, l *int, r *int)) {
-	if heap == nil || len(heap.data) == 0 {
+	if heap == nil || heap.Len() == 0 {
 		return
 	}
 
 	var triple = [3]*int{&heap.data[root]}
 
-	if l := left(root); l < len(heap.data) {
+	if l := left(root); l < heap.Len() {
 		triple[1] = &heap.data[l]
 		heap.walkImpl(l, f)
 	}
-	if r := right(root); r < len(heap.data) {
+	if r := right(root); r < heap.Len() {
 		triple[2] = &heap.data[r]
 		heap.walkImpl(r, f)
 	}
