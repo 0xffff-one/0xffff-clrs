@@ -37,10 +37,10 @@ func (heap *BinaryHeap) swap(a, b int) {
 
 func (heap *BinaryHeap) maxHeapify(i int) {
 	largest := i
-	if l := left(i); l < len(heap.data) && heap.data[largest] < heap.data[l] {
+	if l := left(i); l < heap.Len() && heap.data[largest] < heap.data[l] {
 		largest = l
 	}
-	if r := right(i); r < len(heap.data) && heap.data[largest] < heap.data[r] {
+	if r := right(i); r < heap.Len() && heap.data[largest] < heap.data[r] {
 		largest = r
 	}
 	if largest != i {
@@ -56,24 +56,29 @@ func NewBinaryHeap() BinaryHeap {
 	}
 }
 
+// Len returns the number of elements in the heap.
+func (heap *BinaryHeap) Len() int {
+	return len(heap.data)
+}
+
 // Push pushes a new item into a binary heap.
 func (heap *BinaryHeap) Push(item int) {
 	heap.data = append(heap.data, item)
-	for i := len(heap.data) - 1; i > 0 && heap.data[parent(i)] < heap.data[i]; i = parent(i) {
+	for i := heap.Len() - 1; i > 0 && heap.data[parent(i)] < heap.data[i]; i = parent(i) {
 		heap.swap(parent(i), i)
 	}
 }
 
 // Pop pops out an item from a binary heap.
 func (heap *BinaryHeap) Pop() (int, error) {
-	if len(heap.data) == 0 {
+	if heap.Len() == 0 {
 		return 0, newBinaryHeapUnderflowError()
 	}
 	result := heap.data[0]
 	// Swap the root and the last leaf
-	heap.swap(0, len(heap.data)-1)
+	heap.swap(0, heap.Len()-1)
 	// Shrink the heap
-	heap.data = heap.data[:len(heap.data)-1]
+	heap.data = heap.data[:heap.Len()-1]
 	heap.maxHeapify(0)
 
 	return result, nil
@@ -83,7 +88,7 @@ func (heap *BinaryHeap) Pop() (int, error) {
 func FromSlice(s []int) BinaryHeap {
 	heap := BinaryHeap{s}
 
-	for i := parent(len(heap.data) - 1); i >= 0; i-- {
+	for i := parent(heap.Len() - 1); i >= 0; i-- {
 		heap.maxHeapify(i)
 	}
 
@@ -92,7 +97,7 @@ func FromSlice(s []int) BinaryHeap {
 
 // IntoSortedSlice returns the undelying data of the heap by a sorted slice in descending order.
 func (heap *BinaryHeap) IntoSortedSlice() []int {
-	s := make([]int, 0, len(heap.data))
+	s := make([]int, 0, heap.Len())
 	for v, err := heap.Pop(); err == nil; v, err = heap.Pop() {
 		s = append(s, v)
 	}
