@@ -9,7 +9,9 @@ func TestInsertion(t *testing.T) {
 	var val int = 1
 	s := NEWSKIPLIST(6)
 	for i = 1; i < 10; i++ {
-		s.insert(i, val)
+		if  !s.insert(i, val){
+			t.Error("[-]Insertion failed")
+		}
 		val++
 	}
 }
@@ -22,10 +24,20 @@ func TestSearch(t *testing.T) {
 	}
 }
 
+func TestShow(t *testing.T) {
+	var i uint64
+	s := NEWSKIPLIST(6)
+	for i = 1; i < 10; i++ {
+		s.show()
+	}
+}
 func TestDelete(t *testing.T) {
 	var i uint64
 	s := NEWSKIPLIST(6)
 	for i = 1; i < 10; i++ {
-		s.delete(i)
+		if !s.delete(i){
+			t.Error("[-]Deletion failed")
+		}
+		
 	}
 }
