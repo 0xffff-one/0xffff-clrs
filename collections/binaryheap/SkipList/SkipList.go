@@ -72,7 +72,7 @@ func (s *SKIPLIST) searchWithPreviousNodes(index uint64) ([]*Node, *Node) {
 	return previousNodes, currentNode
 }
 
-func (s *SKIPLIST) insert(index uint64, value int) {
+func (s *SKIPLIST) insert(index uint64, value int) bool {
 	// Write lock and unlock.
 
 	previousNodes, currentNode := s.searchWithPreviousNodes(index)
@@ -80,7 +80,7 @@ func (s *SKIPLIST) insert(index uint64, value int) {
 	// 如果相应index的节点已存在，直接改值
 	if currentNode != s.head && currentNode.index == index {
 		currentNode.value = value
-		return
+		return true
 	}
 
 	// Make a new value.
@@ -105,10 +105,10 @@ func (s *SKIPLIST) insert(index uint64, value int) {
 		previousNodes[i] = nil
 	}
 
-	fmt.Println("[+]Insertion success.index=", index)
+	return true
 }
 
-func (s *SKIPLIST) delete(index uint64) {
+func (s *SKIPLIST) delete(index uint64) bool{
 
 	previousNodes, currentNode := s.searchWithPreviousNodes(index)
 
@@ -125,6 +125,7 @@ func (s *SKIPLIST) delete(index uint64) {
 	for i := len(currentNode.nextNodes); i < len(previousNodes); i++ {
 		previousNodes[i] = nil
 	}
+	return true
 }
 func (s *SKIPLIST) show() {
 	var currentNode *Node = s.head
